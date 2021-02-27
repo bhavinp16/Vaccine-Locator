@@ -53,13 +53,6 @@ function Login() {
                     <input type="password" className="form-control" name="password" placeholder="Enter password" onChange={handlechange} />
                 </div>
 
-                <div className="form-group">
-                    <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                        <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
-                    </div>
-                </div>
-
                 <button type="submit" className="btn btn-dark btn-lg btn-block" onClick={logind}>Sign in</button>
                 <Link to="/signup" className="btn btn-light btn-md btn-block">Create an account
                 </Link>

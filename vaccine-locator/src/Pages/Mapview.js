@@ -1,14 +1,14 @@
 import React from 'react'
-import Bodyhomepage from '../Components/Bodyhomepage'
+import Mapp from '../Components/Mapp'
 import Navbar from '../Components/Navbar'
 
-function Home() {
+function Mapview() {
     return (
         <div>
             <Navbar />
-            <Bodyhomepage />
+            <Mapp />
         </div>
     )
 }
 
-export default Home
+export default Mapview
