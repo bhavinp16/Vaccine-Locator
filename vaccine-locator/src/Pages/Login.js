@@ -2,7 +2,7 @@ import React from 'react'
 import { Fragment, useState, useContext } from 'react'
 import { Link } from 'react-router-dom';
 import usercontext from '../Context/user/usercontext';
-import auth from '../firebase';
+import { auth } from '../firebase';
 
 function Login() {
     const context = useContext(usercontext)
@@ -31,8 +31,9 @@ function Login() {
                 setuser(userr); // updating the state to the authenticated user
             })
             .catch((error) => {
-                var errorCode = error.code;
-                var errorMessage = error.message;
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                error.log(errorCode, errorMessage);
             });
     }
 
@@ -69,4 +70,3 @@ function Login() {
 }
 
 export default Login
-
