@@ -1,10 +1,10 @@
 import React, { Fragment, useContext } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import usercontext from './Context/User/usercontext';
-import home from './Pages/Home';
+import usercontext from './Context/user/usercontext';
 import Login from './Pages/Login';
 import Signup from './Pages/Signup';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'; // importing bootstrap 
+import Home from './Pages/Home';
 
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
               (
                 <>
                   <Route exact path="/" />
-                  <Route path="/home" component={home} />
+                  <Route path="/home" component={Home} />
                 </>
               )}
           </Switch>
@@ -45,4 +45,5 @@ function App() {
 }
 
 export default App;
+
 
