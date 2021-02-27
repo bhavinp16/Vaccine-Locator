@@ -6,6 +6,7 @@ import Signup from './Pages/Signup';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'; // importing bootstrap 
 import Home from './Pages/Home';
 import Mapview from './Pages/Mapview';
+import Aboutus from './Pages/Aboutus';
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
                   <Route exact path="/" />
                   <Route path="/home" component={Home} />
                   <Route path="/map" component={Mapview} />
+                  <Route path="/aboutus" component={Aboutus} />
                 </>
               )}
           </Switch>
