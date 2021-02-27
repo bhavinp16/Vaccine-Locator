@@ -4,6 +4,11 @@
 	box-sizing: border-box;
 }
 
+.pin {
+	height: 32px;
+	width: 32px;
+}
+
 body {
 	color: #404040;
 	font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
