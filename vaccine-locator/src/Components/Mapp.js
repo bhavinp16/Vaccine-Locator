@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import ReactMapGL, { Marker, Popup } from 'react-map-gl';
+import ReactMapGL, {Marker, Popup} from 'react-map-gl';
+
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './mapstylesheet.css'
 import * as HospData from "./skateboard-parks.json"
@@ -24,6 +25,7 @@ function Mapp() {
                     setViewport(viewport);
                 }}
             >
+
                 {HospData.features.map((hospital) => (
                     <Marker
                         key={hospital.properties.PARK_ID}
@@ -40,6 +42,8 @@ function Mapp() {
                     </Marker>
                 ))}
                 {selectedHospital ? (
+
+
                     <Popup
                         latitude={selectedHospital.geometry.coordinates[1]}
                         longitude={selectedHospital.geometry.coordinates[0]}
