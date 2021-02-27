@@ -1,17 +1,19 @@
 import React, { useState } from 'react'
-import ReactMapGL, { Marker } from 'react-map-gl';
+import ReactMapGL, { Marker, Popup } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './mapstylesheet.css'
-import * as ParkData from "./skateboard-parks.json"
+import * as HospData from "./skateboard-parks.json"
 function Mapp() {
     const [viewport, setViewport] = useState({
 
-        latitude: 37.7577,
-        longitude: -122.4376,
+        latitude: 45.3555222,
+        longitude: -75.7238167,
         width: "100vw",
         height: "100vh",
-        zoom: 8
+        zoom: 10
     });
+
+    const [selectedHospital, setSelectedHospital] = useState(null);
 
     return (
         <div>
@@ -22,16 +24,35 @@ function Mapp() {
                     setViewport(viewport);
                 }}
             >
-                {ParkData.features.map((park) => (
+                {HospData.features.map((hospital) => (
                     <Marker
-                        key={park.properties.PARK_ID}
-                        latitude={park.geometry.coordinates[1]}
-                        longitude={park.geometry.coordinates[0]}>
-                        <button>
+                        key={hospital.properties.PARK_ID}
+                        latitude={hospital.geometry.coordinates[1]}
+                        longitude={hospital.geometry.coordinates[0]}>
+                        <button
+                            onClick={e => {
+                                e.preventDefault();
+                                setSelectedHospital(hospital);
+                            }}
+                        >
                             <img className="pin" src="https://www.pngrepo.com/png/90074/512/hospital.png" alt="#" />
                         </button>
                     </Marker>
                 ))}
+                {selectedHospital ? (
+                    <Popup
+                        latitude={selectedHospital.geometry.coordinates[1]}
+                        longitude={selectedHospital.geometry.coordinates[0]}
+                        onClose={() => {
+                            setSelectedHospital(null);
+                        }}
+                    >
+                        <div>
+                            <h2>{selectedHospital.properties.NAME}</h2>
+                            <p>{selectedHospital.properties.DESCRIPTIO}</p>
+                        </div>
+                    </Popup>
+                ) : null}
             </ReactMapGL>
         </div>
     );
