@@ -30,26 +30,24 @@ function Signup() {
                 // Signed in 
                 const userr = userCredential.user;
                 setuser(userr);
+                var userrs = auth.currentUser;
+                userrs.updateProfile({
+                    displayName: formdata.firstname + " " + formdata.lastname,
+                    phoneNumber: formdata.phoneno
+                    // photoURL: "https://profile.jpg"
+
+                }).then(function () {
+                    console.log(formdata.firstname + " " + formdata.lastname);
+                }).catch(function (error) {
+                    const errorMessage = error.message;
+                    console.log(errorMessage);
+                });
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 error.log(errorCode, errorMessage);
             });
-
-        var userr = auth.currentUser;
-        userr.updateProfile({
-            displayName: formdata.firstname + " " + formdata.lastname,
-            phoneNumber: formdata.phoneno
-            // photoURL: "https://profile.jpg"
-
-        }).then(function () {
-            console.log(formdata.firstname + " " + formdata.lastname);
-        }).catch(function (error) {
-            const errorMessage = error.message;
-            error.log(errorMessage);
-        });
-
     }
 
     return (
