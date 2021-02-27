@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import ReactMapGL, {Marker, Popup} from 'react-map-gl';
+import ReactMapGL, { Marker, Popup, GeolocateControl } from 'react-map-gl';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './mapstylesheet.css'
@@ -14,6 +14,12 @@ function Mapp() {
         zoom: 10
     });
 
+    const geolocateControlStyle = {
+        right: 10,
+        top: 10
+    };
+
+
     const [selectedHospital, setSelectedHospital] = useState(null);
 
     return (
@@ -25,6 +31,13 @@ function Mapp() {
                     setViewport(viewport);
                 }}
             >
+
+                <GeolocateControl
+                    style={geolocateControlStyle}
+                    positionOptions={{ enableHighAccuracy: true }}
+                    trackUserLocation={true}
+                    auto
+                />
 
                 {HospData.features.map((hospital) => (
                     <Marker
