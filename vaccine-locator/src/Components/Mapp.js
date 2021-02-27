@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
-import ReactMapGL, { Marker, Popup, GeolocateControl } from 'react-map-gl';
+import ReactMapGL, { Marker, Popup, GeolocateControl, NavigationControl, FullscreenControl } from 'react-map-gl';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './mapstylesheet.css'
 import * as HospData from "./skateboard-parks.json"
+
+
 function Mapp() {
     const [viewport, setViewport] = useState({
 
@@ -14,16 +16,29 @@ function Mapp() {
         zoom: 10
     });
 
+    HospData.features.forEach(function (store, i) {
+        store.properties.id = i;
+    });
+
+    const navControlStyle = {
+        right: 10,
+        top: 10
+    };
+
     const geolocateControlStyle = {
         right: 10,
         top: 10
     };
 
+    const fullscreenControlStyle = {
+        right: 10,
+        top: 10
+    };
 
     const [selectedHospital, setSelectedHospital] = useState(null);
 
     return (
-        <div>
+        <>
             <ReactMapGL {...viewport}
                 mapboxApiAccessToken="pk.eyJ1IjoicHJhbmF2cGF0a2kiLCJhIjoiY2tsbm54bWFiMDM0bDJ3cGg0aDdnb2I5bSJ9.Wb2YJ9VaMxy7CLM0eYv_FQ"
                 mapStyle="mapbox://styles/mapbox/dark-v9"
@@ -31,6 +46,9 @@ function Mapp() {
                     setViewport(viewport);
                 }}
             >
+                <FullscreenControl style={fullscreenControlStyle} />
+
+                <NavigationControl style={navControlStyle} />
 
                 <GeolocateControl
                     style={geolocateControlStyle}
@@ -55,8 +73,6 @@ function Mapp() {
                     </Marker>
                 ))}
                 {selectedHospital ? (
-
-
                     <Popup
                         latitude={selectedHospital.geometry.coordinates[1]}
                         longitude={selectedHospital.geometry.coordinates[0]}
@@ -71,7 +87,7 @@ function Mapp() {
                     </Popup>
                 ) : null}
             </ReactMapGL>
-        </div>
+        </>
     );
 }
 export default Mapp
