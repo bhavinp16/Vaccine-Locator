@@ -1,12 +1,28 @@
 import React, { useState } from 'react'
+import { Redirect } from 'react-router-dom'
 import ReactMapGL, { Marker, Popup, GeolocateControl, NavigationControl } from 'react-map-gl';
 import * as turf from '@turf/turf'
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './mapstylesheet.css'
-import * as HospData from "./skateboard-parks.json"
+import * as HospData from "./skateboard-parks.json";
+import { auth } from '../firebase';
 
 
 function Mapp() {
+
+    const user = auth.currentUser;
+
+    ///
+    const bookfn = (e) => {
+        alert("BOOKED appointment for " + user.email + " at " + selectedHospital.properties.NAME);
+
+        //do firebase database stuff here
+
+
+    }
+    ///
+
+
     const [viewport, setViewport] = useState({
 
         latitude: 45.3555222,
@@ -77,6 +93,7 @@ function Mapp() {
 
     return (
         <>
+            <button className="btn btn-primary" onClick={bookfn}>Book an appointment</button>
             <ReactMapGL {...viewport}
                 mapboxApiAccessToken="pk.eyJ1IjoicHJhbmF2cGF0a2kiLCJhIjoiY2tsbm54bWFiMDM0bDJ3cGg0aDdnb2I5bSJ9.Wb2YJ9VaMxy7CLM0eYv_FQ"
                 mapStyle="mapbox://styles/mapbox/dark-v9"
@@ -111,16 +128,18 @@ function Mapp() {
                     </Marker>
                 ))}
                 {selectedHospital ? (
-                    <Popup
+                    <Popup captureClick={true}
                         latitude={selectedHospital.geometry.coordinates[1]}
                         longitude={selectedHospital.geometry.coordinates[0]}
                         onClose={() => {
                             setSelectedHospital(null);
-                        }}
+                        }
+                        }
                     >
                         <div>
                             <h2>{selectedHospital.properties.NAME}</h2>
                             <p>{selectedHospital.properties.DESCRIPTIO}</p>
+
                         </div>
                     </Popup>
                 ) : null}
