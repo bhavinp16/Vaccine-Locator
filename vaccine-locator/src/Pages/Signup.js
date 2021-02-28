@@ -46,7 +46,7 @@ function Signup() {
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                error.log(errorCode, errorMessage);
+               console.log(errorCode, errorMessage);
             });
     }
 

@@ -4,7 +4,7 @@ import * as turf from '@turf/turf'
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './mapstylesheet.css'
 import * as HospData from "./vaccine_centers.json";
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
 
 
 function Mapp() {
@@ -16,7 +16,22 @@ function Mapp() {
         alert("BOOKED appointment for " + user.email + " at " + selectedHospital.properties.NAME);
 
         //do firebase database stuff here
+        db.collection('Vaccine Centers').get().then((snapshot) => {
+            snapshot.docs.forEach(doc => {
+                db.collection('Vaccine Centers').doc(doc.id).collection('Appointments').add({
+                    email: user.email
+                })
+                let number = doc.data().vaccines
+                number = number - 1
+                //    console.log(selectedHospital.properties.NAME)
+                //    console.log(number)
+                db.collection('Vaccine Centers').doc(doc.id).update({
+                    vaccines: number
+                })
 
+            })
+
+        })
 
     }
     ///
@@ -81,9 +96,6 @@ function Mapp() {
         let collection = turf.featureCollection(points);
         let currentPoint = turf.point([region.longitude, region.latitude]);
         let nearest = turf.nearestPoint(currentPoint, collection);
-
-
-        let addToMap = [currentPoint, points, nearest];
         console.log(nearest);
         console.log(Math.floor(nearest.properties.distanceToPoint)); // let's say 50Km
     };
