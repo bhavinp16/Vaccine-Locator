@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import ReactMapGL, { Marker, Popup, GeolocateControl, NavigationControl, FullscreenControl } from 'react-map-gl';
-
+import ReactMapGL, { Marker, Popup, GeolocateControl, NavigationControl } from 'react-map-gl';
+import turf from 'turf';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './mapstylesheet.css'
 import * as HospData from "./skateboard-parks.json"
@@ -30,9 +30,48 @@ function Mapp() {
         top: 10
     };
 
-    const fullscreenControlStyle = {
-        right: 10,
-        top: 10
+
+    ///
+    var options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
+    };
+
+    let ourlocation = null;
+
+    function success(pos) {
+        ourlocation = pos.coords;
+
+        console.log('Your current position is:');
+        console.log(`Latitude : ${ourlocation.latitude}`);
+        console.log(`Longitude: ${ourlocation.longitude}`);
+        console.log(`More or less ${ourlocation.accuracy} meters.`);
+    }
+
+    function error(err) {
+        console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+
+    navigator.geolocation.getCurrentPosition(success, error, options);
+    //
+
+    //finding shortest distance
+    const handleNearby = () => {
+        // const { region, providers } = this.state;
+        const region = ourlocation;
+        const providers = HospData;
+        let points = providers.map(p =>
+            turf.point([p.geometry.coordinates.latitude, p.geometry.coordinates.longitude])
+        );
+        let collection = turf.featureCollection(points);
+        let currentPoint = turf.point([region.longitude, region.latitude]);
+        let nearest = turf.nearestPoint(currentPoint, collection);
+        
+
+        let addToMap = [currentPoint, points, nearest];
+        console.log(nearest);
+        console.log(Math.floor(nearest.properties.distanceToPoint)); // let's say 50Km
     };
 
     const [selectedHospital, setSelectedHospital] = useState(null);
@@ -46,7 +85,6 @@ function Mapp() {
                     setViewport(viewport);
                 }}
             >
-                <FullscreenControl style={fullscreenControlStyle} />
 
                 <NavigationControl style={navControlStyle} />
 
@@ -54,6 +92,7 @@ function Mapp() {
                     style={geolocateControlStyle}
                     positionOptions={{ enableHighAccuracy: true }}
                     trackUserLocation={true}
+                    onClick={handleNearby}
                     auto
                 />
 
@@ -91,3 +130,4 @@ function Mapp() {
     );
 }
 export default Mapp
+
