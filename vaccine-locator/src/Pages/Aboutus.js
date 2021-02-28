@@ -5,13 +5,13 @@ function Aboutus() {
     return (
         <div>
             <Navbar />
-            <div className="jumbotron flex align-items-center justify-content-center">
-                we are Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt dicta dolorem magnam obcaecati exercitationem? Corrupti earum error omnis ad cupiditate rem voluptatem doloribus ipsa veniam dicta ut, consequuntur fugit illo.lore
+            <div className="jumbotron flex align-items-center justify-content-center p-lg-5 m-lg-5">
+                <header className="flex align-content-center justify-content-center bold display-4">Vaccine Locator</header>
+                <br />
+                We are a free and online service provider where we help people search for locations which that offer vaccinations. We also help them track the nearest location and locaions available in their proximity.
+                We work with partners such as clinics, pharmacies, and health departments to provide accurate and up-to-date information about vaccination services. We also let them book an appointment for the same.
 
-                Vaccine Locator
 
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis labore dolore provident repellat neque vero maiores autem iusto, corporis nihil libero tenetur hic, at recusandae laudantium dicta in, eius quaerat.
-                
             </div>
         </div>
     )
