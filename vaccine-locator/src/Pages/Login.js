@@ -31,9 +31,7 @@ function Login() {
                 setuser(userr); // updating the state to the authenticated user
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorCode, errorMessage);
+                alert("Invalid password or username!!");
             });
     }
 

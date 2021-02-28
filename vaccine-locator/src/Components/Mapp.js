@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Redirect } from 'react-router-dom'
 import ReactMapGL, { Marker, Popup, GeolocateControl, NavigationControl } from 'react-map-gl';
 import * as turf from '@turf/turf'
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -93,7 +92,12 @@ function Mapp() {
 
     return (
         <>
-            <button className="btn btn-primary" onClick={bookfn}>Book an appointment</button>
+            {selectedHospital &&
+                <div className=" w-100 bg-dark d-flex align-content-end justify-content-end ">
+                    <button className="btn btn-primary px-lg-5 my-2 my-lg-0 " onClick={bookfn}>Book an appointment</button>
+                </div>
+            }
+
             <ReactMapGL {...viewport}
                 mapboxApiAccessToken="pk.eyJ1IjoicHJhbmF2cGF0a2kiLCJhIjoiY2tsbm54bWFiMDM0bDJ3cGg0aDdnb2I5bSJ9.Wb2YJ9VaMxy7CLM0eYv_FQ"
                 mapStyle="mapbox://styles/mapbox/dark-v9"
