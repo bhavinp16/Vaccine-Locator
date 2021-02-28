@@ -4,7 +4,7 @@ import ReactMapGL, { Marker, Popup, GeolocateControl, NavigationControl } from '
 import * as turf from '@turf/turf'
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './mapstylesheet.css'
-import * as HospData from "./skateboard-parks.json";
+import * as HospData from "./vaccine_centers.json";
 import { auth } from '../firebase';
 
 
