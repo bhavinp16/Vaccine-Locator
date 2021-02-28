@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import ReactMapGL, { Marker, Popup, GeolocateControl, NavigationControl } from 'react-map-gl';
-import turf from 'turf';
+import * as turf from '@turf/turf'
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './mapstylesheet.css'
 import * as HospData from "./skateboard-parks.json"
@@ -60,14 +60,13 @@ function Mapp() {
     const handleNearby = () => {
         // const { region, providers } = this.state;
         const region = ourlocation;
-        const providers = HospData;
-        let points = providers.map(p =>
+        let points = HospData.features.forEach(p =>
             turf.point([p.geometry.coordinates.latitude, p.geometry.coordinates.longitude])
         );
         let collection = turf.featureCollection(points);
         let currentPoint = turf.point([region.longitude, region.latitude]);
         let nearest = turf.nearestPoint(currentPoint, collection);
-        
+
 
         let addToMap = [currentPoint, points, nearest];
         console.log(nearest);
